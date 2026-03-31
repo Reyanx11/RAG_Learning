@@ -1,3 +1,16 @@
+# import google.generativeai as genai
+# import os
+# from dotenv import load_dotenv
+
+# load_dotenv()
+# genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
+# print("Searching for available embedding models...")
+# for m in genai.list_models():
+#     if 'embedContent' in m.supported_generation_methods:
+#         print(f"FOUND: {m.name}")
+
+
 import google.generativeai as genai
 import os
 from dotenv import load_dotenv
@@ -5,7 +18,7 @@ from dotenv import load_dotenv
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-print("Searching for available embedding models...")
+print("Searching for Chat/Generation models...")
 for m in genai.list_models():
-    if 'embedContent' in m.supported_generation_methods:
+    if 'generateContent' in m.supported_generation_methods:
         print(f"FOUND: {m.name}")

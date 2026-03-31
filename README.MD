@@ -29,9 +29,14 @@ This script is used at runtime.
 * Takes a user query
 * Converts the query into an embedding
 * Searches the vector database for similar chunks
-* Returns the most relevant results
-
+* Sends query + retrieved context to Gemini
+* Returns the final answer to user
 ---
+
+## How it works
+
+Documents → Chunks → Embeddings → Vector DB
+Query → Retrieve relevant chunks → Gemini → Final answer
 
 ## How to run
 
