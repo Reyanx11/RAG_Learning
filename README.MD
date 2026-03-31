@@ -2,10 +2,11 @@
 
 ## Overview
 
-This project implements a basic Retrieval-Augmented Generation (RAG) workflow using two scripts:
+This project implements a Retrieval-Augmented Generation (RAG) workflow with document ingestion, retrieval, and history-aware response generation.
 
 * `ingestion_pipeline.py` – processes documents and creates the vector database
 * `retrieval_pipeline.py` – retrieves relevant information based on a user query
+* `history_aware_generation.py` – handles conversational queries with context awareness
 
 ---
 
@@ -31,12 +32,30 @@ This script is used at runtime.
 * Searches the vector database for similar chunks
 * Sends query + retrieved context to Gemini
 * Returns the final answer to user
+
+---
+
+## history_aware_generation.py
+
+This script extends retrieval with conversation awareness.
+
+* Accepts user queries in a loop
+* Uses chat history to rewrite follow-up questions into standalone queries
+* Retrieves relevant chunks from the database
+* Sends query + context to Gemini for answer generation
+* Maintains chat history for better responses
+
 ---
 
 ## How it works
 
 Documents → Chunks → Embeddings → Vector DB
 Query → Retrieve relevant chunks → Gemini → Final answer
+
+For conversational queries:
+Chat history → Rewrite query → Retrieve → Gemini → Answer
+
+---
 
 ## How to run
 
@@ -52,6 +71,12 @@ python ingestion_pipeline.py
 python retrieval_pipeline.py
 ```
 
+3. Run history-aware chat:
+
+```
+python history_aware_generation.py
+```
+
 ---
 
 ## Notes
@@ -59,3 +84,4 @@ python retrieval_pipeline.py
 * The `db/` folder contains the vector database and should not be deleted after ingestion
 * Re-running ingestion repeatedly will consume API requests
 * Retrieval does not reprocess documents, it only queries existing data
+* Chat history is session-based and not stored permanently
